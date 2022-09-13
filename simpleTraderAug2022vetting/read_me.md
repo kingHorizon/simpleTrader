@@ -2,6 +2,8 @@
 Copyright (C) 2022 Truth Malachi Foreman <truthmf@gmail.com>
 ******
 This file is part of the simpleTraderAug2022vetting project.
+formatted review and comments to this file is linked here https://docs.google.com/document/d/1B6N9VqN1m1NMyw6ur420shvZhu_6N_QKUNdipV4VHfo/edit?usp=sharing
+This file is updated laggardly to that file.
 ******
 simpleTraderAug2022vetting and all associated files and directories within can not be copied and/or distributed without the express written permission of Truth Foreman.
 ******
