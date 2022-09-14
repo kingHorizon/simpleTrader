@@ -10,7 +10,7 @@ import itertools
 from scipy.signal import argrelextrema
 
 
-def get_historical_trading_signals_for_symbol(sym='SPY',interval="1d",period='max',start=None,end=None,candle_range=None,signals=['hammer']):
+def get_historical_trading_signals_for_symbol(sym='SPY',interval="1d",period='max',start=None,end=None,candle_range=None,signals=['hammer'],verbose=False):
     
     """ 
         DESCRIPTION :
@@ -18,6 +18,7 @@ def get_historical_trading_signals_for_symbol(sym='SPY',interval="1d",period='ma
         with a user's preffered historical trade signals of a single equity-symbol.
         
         PARAMATER OPTIONS :
+        - verbose : if True, will print information about function as it executes
         - periods: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
         - intervals: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
         - candle_range : any integer
@@ -208,19 +209,36 @@ def get_historical_trading_signals_for_symbol(sym='SPY',interval="1d",period='ma
     
     # END FUNCTION #
 
-
-def bazinga_test():
-    print(f'\033[1;34;40m Welcome to tf_analysis_bazinga_shortened.py \033[0;37;40m \n')
-    print('\033[1;33;40m trade reccomendations are in yellow \033[0;37;40m')
-    print(f'\033[1;32;40m Positive value for a date/time stamp means buy \033[0;37;40m')
-    print(f'\033[1;31;40m Negative value for a date/time stamp means sell \033[0;37;40m \n')
-    tf = '1d' # candle timeframe size to test. best options: '1d' daily candles and '1h' hourly candles and '15m' 15 minute candles # NOTE period range for candles is automaticaly set to the maximum and pared down using the candle_range parameter. 
-    symbols = ['SPY','TSLA','V','MPC','MSFT']
-    candle_range = 100 # number of most recent candles to analyze 
-    master_df={}
-    for sym in symbols:    
-        master_df[sym] = main(sym,interval=tf,candle_range=100)
-        pass
-    print('*done*')
-    return master_df
-bazinga_test()
+# main function executed when ran from terminal
+if __name__ == "__main__":
+    def bazinga_test(verbose=True):
+        """
+        
+            this tester function will produce signals for the tickers ['SPY','TSLA','V','MPC','MSFT'] 
+            over the past 100 days
+            and print a trade signal for each symbol if available
+            
+        """
+        
+        if verbose :
+            print(f'\033[1;34;40m Welcome to tf_analysis_bazinga_shortened.py \033[0;37;40m \n')
+            print('\033[1;33;40m trade reccomendations are in yellow \033[0;37;40m')
+            print(f'\033[1;32;40m Positive value for a date/time stamp means buy \033[0;37;40m')
+            print(f'\033[1;31;40m Negative value for a date/time stamp means sell \033[0;37;40m \n')
+            
+        # initialize automatic/default paramters to test 
+        tf = '1d' # candle timeframe size to test. best options: '1d' daily candles and '1h' hourly candles and '15m' 15 minute candles # NOTE period range for candles is automaticaly set to the maximum and pared down using the candle_range parameter. 
+        symbols = ['SPY','TSLA','V','MPC','MSFT']
+        candle_range = 100 # number of most recent candles to analyze 
+        master_df={}
+        
+        # for each symbol/ticker generate signals
+        for sym in symbols:    
+            master_df[sym] = main(sym,interval=tf,candle_range=100,verbose=verbose)
+            pass
+        
+        print('*done*')
+        return master_df
+        # END FUNCTION #
+    
+    bazinga_test()
